@@ -1,0 +1,26 @@
+{
+  "image.png": {
+    "title": "Dog",
+    "caption": "A domestic dog commonly kept as a pet."
+  },
+
+  "image copy.png": {
+    "title": "Dog",
+    "caption": "A dog standing outdoors."
+  },
+
+  "image copy 2.png": {
+    "title": "Dog",
+    "caption": "A domestic Dog take flower in mouth."
+  },
+
+  "image copy 3.png": {
+    "title": "Car",
+    "caption": "A domestic car"
+  },
+
+  "myimg.jpeg" :{
+    "title": "My Image",
+    "caption": "Aarav's image"
+  }
+}

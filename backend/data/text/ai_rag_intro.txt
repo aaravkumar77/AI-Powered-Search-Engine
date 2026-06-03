@@ -1,0 +1,5 @@
+RAG stands for Retrieval-Augmented Generation. In this project, a query is transformed into a vector, which is then used to find the most relevant documents in a vector store. The retrieved documents are used to provide context and improve answer quality.
+
+This demo shows how text and image data can both be indexed and retrieved using a shared vector database. The search engine is useful for answering questions about a document corpus and for finding relevant image content by caption or metadata.
+
+Retrieval-Augmented Generation (RAG) combines information retrieval with large language models. Instead of relying only on the knowledge stored in the model, RAG retrieves relevant documents from an external knowledge base and provides them as context to the language model. This improves answer accuracy, reduces hallucinations, and allows the system to use up-to-date information. RAG systems typically use embeddings, vector databases, and similarity search.

@@ -1,0 +1,15 @@
+FoodLens AI is an advanced multimodal search engine project developed by Aarav as part of his college portfolio. The primary goal of the project is to demonstrate how Retrieval-Augmented Generation (RAG) can be combined with computer vision and natural language processing to create an intelligent search experience.
+
+Unlike traditional search engines that only rely on keyword matching, FoodLens AI uses modern embedding techniques to understand the semantic meaning of both text and images. The system is capable of processing user queries in multiple formats, including text-based questions and uploaded images. This enables users to search for information using natural language or visual content.
+
+The project utilizes the CLIP (Contrastive Language-Image Pretraining) model to generate embeddings for both images and text. Since CLIP maps images and text into the same vector space, the system can perform cross-modal retrieval. For example, a user can upload an image of a dog and retrieve relevant textual information, or search using text and retrieve related images.
+
+To support efficient retrieval, the project uses FAISS (Facebook AI Similarity Search) as a vector database. All text documents and image embeddings are indexed and stored in FAISS. When a user submits a query, the query is converted into an embedding and compared against the stored vectors. The system then retrieves the most relevant documents and images based on semantic similarity.
+
+FoodLens AI follows the Retrieval-Augmented Generation architecture. Instead of relying solely on a Large Language Model, the system first retrieves relevant information from its knowledge base. The retrieved context is then provided to the language model, allowing it to generate more accurate, relevant, and context-aware responses. This approach helps reduce hallucinations and improves answer quality.
+
+The project contains a custom knowledge base consisting of text documents covering topics such as Artificial Intelligence, Machine Learning, Computer Vision, Vector Databases, and Retrieval-Augmented Generation. It also includes image data with metadata and captions that can be searched and retrieved through vector similarity.
+
+The backend of the application is implemented in Python and uses FastAPI for API development. The frontend provides an intuitive interface where users can enter questions, upload images, view retrieved results, and receive AI-generated answers. The project demonstrates the practical integration of embeddings, vector databases, multimodal retrieval, and modern generative AI techniques.
+
+FoodLens AI serves as a complete end-to-end demonstration of a real-world multimodal RAG system. It showcases how images and text can be indexed, searched, retrieved, and used as context for intelligent answer generation, making it a valuable learning project in the fields of Artificial Intelligence, Machine Learning, Computer Vision, and Generative AI.
