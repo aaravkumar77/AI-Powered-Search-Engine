@@ -1,0 +1,11 @@
+My name is Aarav Kumar. I am a Bachelor of Technology (B.Tech) student in Computer Science Engineering at Quantum University, Roorkee, Uttarakhand.
+
+I am passionate about software development, artificial intelligence, machine learning, and web technologies. I enjoy learning new technologies and building practical projects that solve real-world problems.
+
+My technical skills include Java, Python, HTML, CSS, JavaScript, SQL, Data Structures and Algorithms, Database Management Systems, Computer Networks, and Software Engineering. I am also interested in AI-powered applications and retrieval-augmented generation (RAG) systems.
+
+I have worked on several academic and personal projects, including FoodieVision, a food image classification system, a BMI calculator, a weather application, a bank management system, and an e-healthcare system. These projects have helped me strengthen my programming and problem-solving skills.
+
+My goal is to continuously improve my technical knowledge, communication skills, and industry readiness. I am actively preparing for placements and exploring opportunities in software development, artificial intelligence, and data-driven technologies.
+
+I enjoy learning, experimenting with new ideas, and collaborating with others to create innovative solutions.

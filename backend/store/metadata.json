@@ -1,4 +1,10 @@
 {
+  "text:aarav_intro/my_intro.txt": {
+    "title": "my_intro",
+    "content": "My name is Aarav Kumar. I am a Bachelor of Technology (B.Tech) student in Computer Science Engineering at Quantum University, Roorkee, Uttarakhand.\n\nI am passionate about software development, artificial intelligence, machine learning, and web technologies. I enjoy learning new technologies and building practical projects that solve real-world problems.\n\nMy technical skills include Java, Python, HTML, CSS, JavaScript, SQL, Data Structures and Algorithms, Database Management Systems, Computer Networks, and Software Engineering. I am also interested in AI-powered applications and retrieval-augmented generation (RAG) systems.\n\nI have worked on several academic and personal projects, including FoodieVision, a food image classification system, a BMI calculator, a weather application, a bank management system, and an e-healthcare system. These projects have helped me strengthen my programming and problem-solving skills.\n\nMy goal is to continuously improve my technical knowledge, communication skills, and industry readiness. I am actively preparing for placements and exploring opportunities in software development, artificial intelligence, and data-driven technologies.\n\nI enjoy learning, experimenting with new ideas, and collaborating with others to create innovative solutions.",
+    "type": "text",
+    "source": "aarav_intro/my_intro.txt"
+  },
   "text:aarav_project.txt": {
     "title": "aarav_project",
     "content": "FoodLens AI is an advanced multimodal search engine project developed by Aarav as part of his college portfolio. The primary goal of the project is to demonstrate how Retrieval-Augmented Generation (RAG) can be combined with computer vision and natural language processing to create an intelligent search experience.\n\nUnlike traditional search engines that only rely on keyword matching, FoodLens AI uses modern embedding techniques to understand the semantic meaning of both text and images. The system is capable of processing user queries in multiple formats, including text-based questions and uploaded images. This enables users to search for information using natural language or visual content.\n\nThe project utilizes the CLIP (Contrastive Language-Image Pretraining) model to generate embeddings for both images and text. Since CLIP maps images and text into the same vector space, the system can perform cross-modal retrieval. For example, a user can upload an image of a dog and retrieve relevant textual information, or search using text and retrieve related images.\n\nTo support efficient retrieval, the project uses FAISS (Facebook AI Similarity Search) as a vector database. All text documents and image embeddings are indexed and stored in FAISS. When a user submits a query, the query is converted into an embedding and compared against the stored vectors. The system then retrieves the most relevant documents and images based on semantic similarity.\n\nFoodLens AI follows the Retrieval-Augmented Generation architecture. Instead of relying solely on a Large Language Model, the system first retrieves relevant information from its knowledge base. The retrieved context is then provided to the language model, allowing it to generate more accurate, relevant, and context-aware responses. This approach helps reduce hallucinations and improves answer quality.\n\nThe project contains a custom knowledge base consisting of text documents covering topics such as Artificial Intelligence, Machine Learning, Computer Vision, Vector Databases, and Retrieval-Augmented Generation. It also includes image data with metadata and captions that can be searched and retrieved through vector similarity.\n\nThe backend of the application is implemented in Python and uses FastAPI for API development. The frontend provides an intuitive interface where users can enter questions, upload images, view retrieved results, and receive AI-generated answers. The project demonstrates the practical integration of embeddings, vector databases, multimodal retrieval, and modern generative AI techniques.\n\nFoodLens AI serves as a complete end-to-end demonstration of a real-world multimodal RAG system. It showcases how images and text can be indexed, searched, retrieved, and used as context for intelligent answer generation, making it a valuable learning project in the fields of Artificial Intelligence, Machine Learning, Computer Vision, and Generative AI.",
@@ -17,6 +23,12 @@
     "type": "text",
     "source": "ai_rag_intro.txt"
   },
+  "text:Dehradun/dehradun.txt": {
+    "title": "dehradun",
+    "content": "Dehradun is the capital city of Uttarakhand, India. It is located in the Doon Valley between the Himalayas and the Shivalik Hills. Dehradun is known for its pleasant climate, natural beauty, educational institutions, and tourist attractions.\n\nThe city serves as an important educational hub and is home to institutions such as the Forest Research Institute (FRI), Indian Military Academy (IMA), and several universities and colleges.\n\nPopular tourist attractions in Dehradun include Robber's Cave, Sahastradhara, Mindrolling Monastery, Tapkeshwar Temple, and Forest Research Institute. The city is also a gateway to famous hill stations and pilgrimage destinations such as Mussoorie, Rishikesh, Haridwar, Kedarnath, and Badrinath.\n\nDehradun has a growing economy based on education, tourism, agriculture, and government services. The city is well connected by road, rail, and air through Jolly Grant Airport.\n\nThe climate of Dehradun is moderate throughout the year. Summers are warm, monsoons bring significant rainfall, and winters are cool and pleasant.\n\nDehradun is known for its greenery, litchi orchards, bakeries, and scenic landscapes. It attracts students, tourists, and professionals from across India.",
+    "type": "text",
+    "source": "Dehradun/dehradun.txt"
+  },
   "text:manish._project.txt": {
     "title": "manish._project",
     "content": "Manish Project Portfolio is a collection of software projects developed by Manish to demonstrate his skills in full-stack development, artificial intelligence, and modern web technologies. The portfolio includes multiple applications that solve real-world problems and showcase expertise in frontend development, backend development, databases, APIs, and machine learning integration.\n\nOne of the major projects in the portfolio is a modern E-Commerce Platform. The e-commerce application is designed to provide users with a complete online shopping experience. Customers can browse products, search for items, filter products by category, add products to a shopping cart, and complete purchases through a secure checkout process. The platform supports user authentication, product management, order tracking, and responsive design to ensure accessibility across desktop and mobile devices.\n\nThe e-commerce system includes an administrative dashboard where administrators can manage products, categories, inventory, and customer orders. The admin panel provides analytics and reporting features that help monitor sales performance and customer activity. The project demonstrates the implementation of REST APIs, database management, authentication systems, and scalable web application architecture.\n\nAnother significant project in the portfolio is the Essay Analyzer System. The Essay Analyzer is an AI-powered application designed to evaluate written content and provide detailed feedback to users. The system accepts essays submitted by students or writers and performs multiple forms of analysis. It examines grammar, spelling, sentence structure, readability, coherence, and overall writing quality.\n\nThe Essay Analyzer uses Natural Language Processing techniques to identify errors and generate suggestions for improvement. It can calculate readability scores, estimate writing complexity, analyze vocabulary usage, and detect common grammatical mistakes. The goal of the system is to help users improve their writing skills through automated feedback and intelligent recommendations.\n\nThe project also includes features such as keyword extraction, topic identification, sentiment analysis, and summary generation. These capabilities enable users to better understand the strengths and weaknesses of their essays. By leveraging AI models and language processing techniques, the Essay Analyzer provides valuable insights that would otherwise require manual review.\n\nBoth projects emphasize user experience, performance, and scalability. The applications were built using modern software development practices, including modular architecture, API-driven communication, responsive interfaces, and efficient database design. Security, maintainability, and code quality were considered throughout the development process.\n\nThe E-Commerce Platform and Essay Analyzer collectively demonstrate Manish's ability to design, develop, and deploy complete software solutions. These projects showcase practical knowledge of web development, database systems, cloud technologies, artificial intelligence, and machine learning concepts. Together, they form a strong portfolio that highlights problem-solving skills and the ability to build impactful technology products.\n\nThe portfolio continues to evolve as new features and improvements are added. Future enhancements may include advanced recommendation systems for the e-commerce platform, AI-powered product search, personalized shopping experiences, and more sophisticated essay evaluation models. These ongoing developments reflect a commitment to continuous learning and innovation in software engineering and artificial intelligence.",
@@ -29,45 +41,428 @@
     "type": "text",
     "source": "ml.txt"
   },
+  "text:my_friend/my_frnd.txt": {
+    "title": "my_frnd",
+    "content": "My friend satyam is a Computer Science student who is interested in programming and technology. He enjoys learning new skills and working on software development projects.\n\nsatyam has experience with Python, Java, and web development technologies. He likes solving coding problems and participating in technical events and workshops.\n\nIn his free time, Rahul enjoys reading about artificial intelligence, watching technology-related videos, and exploring new software tools. He is a hardworking and supportive friend who often helps others with academic projects and assignments.\n\nsatyam aims to build a successful career in the technology industry and is continuously improving his technical and communication skills. He believes in teamwork, learning from mistakes, and staying updated with the latest developments in technology.",
+    "type": "text",
+    "source": "my_friend/my_frnd.txt"
+  },
+  "text:mycollage_Quantum/my_clg_quantum.txt": {
+    "title": "my_clg_quantum",
+    "content": "Quantum University is a private university located in Roorkee, Uttarakhand, India. The university offers undergraduate, postgraduate, and doctoral programs in engineering, computer science, management, agriculture, media studies, and other disciplines.\n\nThe university focuses on industry-oriented education and practical learning. Students participate in projects, workshops, internships, and technical events to enhance their skills and prepare for professional careers.\n\nThe School of Technology at Quantum University provides programs in Computer Science Engineering, Mechanical Engineering, Civil Engineering, Electronics Engineering, and other technical fields. The curriculum includes subjects such as Data Structures, Database Management Systems, Computer Networks, Software Engineering, Artificial Intelligence, and Web Development.\n\nThe campus provides modern classrooms, laboratories, libraries, sports facilities, and student activity centers. Various cultural and technical events are organized throughout the academic year to encourage innovation and teamwork among students.\n\nQuantum University aims to develop skilled professionals by combining academic knowledge with practical experience. The institution promotes research, entrepreneurship, and innovation to help students meet the demands of the modern industry.\n\nRoorkee, where the university is located, is an important educational city in Uttarakhand. The location provides a peaceful learning environment and good connectivity to nearby cities such as Dehradun, Haridwar, and Rishikesh.",
+    "type": "text",
+    "source": "mycollage_Quantum/my_clg_quantum.txt"
+  },
   "text:secret_project.txt": {
     "title": "secret_project",
     "content": "The secret project code is DRAGON-2025.",
     "type": "text",
     "source": "secret_project.txt"
   },
-  "image:aarav_pic.jpeg": {
-    "title": "Aarav's Image",
-    "caption": "A personal image of Aarav.",
-    "filename": "aarav_pic.jpeg",
+  "image:bird/image copy 2.png": {
+    "title": "Bird",
+    "caption": "Image from the Bird category.",
+    "filename": "bird/image copy 2.png",
     "type": "image",
-    "source": "aarav_pic.jpeg"
+    "source": "bird/image copy 2.png"
   },
-  "image:cat1.png": {
+  "image:bird/image copy 3.png": {
+    "title": "Bird",
+    "caption": "Image from the Bird category.",
+    "filename": "bird/image copy 3.png",
+    "type": "image",
+    "source": "bird/image copy 3.png"
+  },
+  "image:bird/image copy 4.png": {
+    "title": "Bird",
+    "caption": "Image from the Bird category.",
+    "filename": "bird/image copy 4.png",
+    "type": "image",
+    "source": "bird/image copy 4.png"
+  },
+  "image:bird/image copy 5.png": {
+    "title": "Bird",
+    "caption": "Image from the Bird category.",
+    "filename": "bird/image copy 5.png",
+    "type": "image",
+    "source": "bird/image copy 5.png"
+  },
+  "image:bird/image copy 6.png": {
+    "title": "Bird",
+    "caption": "Image from the Bird category.",
+    "filename": "bird/image copy 6.png",
+    "type": "image",
+    "source": "bird/image copy 6.png"
+  },
+  "image:bird/image copy.png": {
+    "title": "Bird",
+    "caption": "Image from the Bird category.",
+    "filename": "bird/image copy.png",
+    "type": "image",
+    "source": "bird/image copy.png"
+  },
+  "image:bird/image.png": {
+    "title": "Bird",
+    "caption": "Image from the Bird category.",
+    "filename": "bird/image.png",
+    "type": "image",
+    "source": "bird/image.png"
+  },
+  "image:cats/cat1.png": {
     "title": "Cat",
     "caption": "A domestic cat.",
-    "filename": "cat1.png",
+    "filename": "cats/cat1.png",
     "type": "image",
-    "source": "cat1.png"
+    "source": "cats/cat1.png"
   },
-  "image:dog1.png": {
+  "image:cats/image copy 2.png": {
+    "title": "Cats",
+    "caption": "Image from the Cats category.",
+    "filename": "cats/image copy 2.png",
+    "type": "image",
+    "source": "cats/image copy 2.png"
+  },
+  "image:cats/image copy 3.png": {
+    "title": "Cats",
+    "caption": "Image from the Cats category.",
+    "filename": "cats/image copy 3.png",
+    "type": "image",
+    "source": "cats/image copy 3.png"
+  },
+  "image:cats/image copy 4.png": {
+    "title": "Cats",
+    "caption": "Image from the Cats category.",
+    "filename": "cats/image copy 4.png",
+    "type": "image",
+    "source": "cats/image copy 4.png"
+  },
+  "image:cats/image copy.png": {
+    "title": "Cats",
+    "caption": "Image from the Cats category.",
+    "filename": "cats/image copy.png",
+    "type": "image",
+    "source": "cats/image copy.png"
+  },
+  "image:cats/image.png": {
+    "title": "Cats",
+    "caption": "Image from the Cats category.",
+    "filename": "cats/image.png",
+    "type": "image",
+    "source": "cats/image.png"
+  },
+  "image:city/image copy 2.png": {
+    "title": "City",
+    "caption": "Image from the City category.",
+    "filename": "city/image copy 2.png",
+    "type": "image",
+    "source": "city/image copy 2.png"
+  },
+  "image:city/image copy 3.png": {
+    "title": "City",
+    "caption": "Image from the City category.",
+    "filename": "city/image copy 3.png",
+    "type": "image",
+    "source": "city/image copy 3.png"
+  },
+  "image:city/image copy 4.png": {
+    "title": "City",
+    "caption": "Image from the City category.",
+    "filename": "city/image copy 4.png",
+    "type": "image",
+    "source": "city/image copy 4.png"
+  },
+  "image:city/image copy 5.png": {
+    "title": "City",
+    "caption": "Image from the City category.",
+    "filename": "city/image copy 5.png",
+    "type": "image",
+    "source": "city/image copy 5.png"
+  },
+  "image:city/image copy 6.png": {
+    "title": "City",
+    "caption": "Image from the City category.",
+    "filename": "city/image copy 6.png",
+    "type": "image",
+    "source": "city/image copy 6.png"
+  },
+  "image:city/image copy 7.png": {
+    "title": "City",
+    "caption": "Image from the City category.",
+    "filename": "city/image copy 7.png",
+    "type": "image",
+    "source": "city/image copy 7.png"
+  },
+  "image:city/image copy.png": {
+    "title": "City",
+    "caption": "Image from the City category.",
+    "filename": "city/image copy.png",
+    "type": "image",
+    "source": "city/image copy.png"
+  },
+  "image:city/image.png": {
+    "title": "City",
+    "caption": "Image from the City category.",
+    "filename": "city/image.png",
+    "type": "image",
+    "source": "city/image.png"
+  },
+  "image:Dog/dog1.png": {
     "title": "Dog",
     "caption": "A dog holding a flower in its mouth.",
-    "filename": "dog1.png",
+    "filename": "Dog/dog1.png",
     "type": "image",
-    "source": "dog1.png"
+    "source": "Dog/dog1.png"
   },
-  "image:dog2.png": {
+  "image:Dog/dog2.png": {
     "title": "Dog",
     "caption": "A dog standing outdoors.",
-    "filename": "dog2.png",
+    "filename": "Dog/dog2.png",
     "type": "image",
-    "source": "dog2.png"
+    "source": "Dog/dog2.png"
   },
-  "image:dog3.png": {
+  "image:Dog/dog3.png": {
     "title": "Dog",
     "caption": "A domestic dog commonly kept as a pet.",
-    "filename": "dog3.png",
+    "filename": "Dog/dog3.png",
     "type": "image",
-    "source": "dog3.png"
+    "source": "Dog/dog3.png"
+  },
+  "image:Dog/image copy 2.png": {
+    "title": "Dog",
+    "caption": "Image from the Dog category.",
+    "filename": "Dog/image copy 2.png",
+    "type": "image",
+    "source": "Dog/image copy 2.png"
+  },
+  "image:Dog/image copy 3.png": {
+    "title": "Dog",
+    "caption": "Image from the Dog category.",
+    "filename": "Dog/image copy 3.png",
+    "type": "image",
+    "source": "Dog/image copy 3.png"
+  },
+  "image:Dog/image copy 4.png": {
+    "title": "Dog",
+    "caption": "Image from the Dog category.",
+    "filename": "Dog/image copy 4.png",
+    "type": "image",
+    "source": "Dog/image copy 4.png"
+  },
+  "image:Dog/image copy 5.png": {
+    "title": "Dog",
+    "caption": "Image from the Dog category.",
+    "filename": "Dog/image copy 5.png",
+    "type": "image",
+    "source": "Dog/image copy 5.png"
+  },
+  "image:Dog/image copy 6.png": {
+    "title": "Dog",
+    "caption": "Image from the Dog category.",
+    "filename": "Dog/image copy 6.png",
+    "type": "image",
+    "source": "Dog/image copy 6.png"
+  },
+  "image:Dog/image copy 7.png": {
+    "title": "Dog",
+    "caption": "Image from the Dog category.",
+    "filename": "Dog/image copy 7.png",
+    "type": "image",
+    "source": "Dog/image copy 7.png"
+  },
+  "image:Dog/image copy 8.png": {
+    "title": "Dog",
+    "caption": "Image from the Dog category.",
+    "filename": "Dog/image copy 8.png",
+    "type": "image",
+    "source": "Dog/image copy 8.png"
+  },
+  "image:Dog/image copy.png": {
+    "title": "Dog",
+    "caption": "Image from the Dog category.",
+    "filename": "Dog/image copy.png",
+    "type": "image",
+    "source": "Dog/image copy.png"
+  },
+  "image:Dog/image.png": {
+    "title": "Dog",
+    "caption": "Image from the Dog category.",
+    "filename": "Dog/image.png",
+    "type": "image",
+    "source": "Dog/image.png"
+  },
+  "image:elctronics/image copy 2.png": {
+    "title": "Elctronics",
+    "caption": "Image from the Elctronics category.",
+    "filename": "elctronics/image copy 2.png",
+    "type": "image",
+    "source": "elctronics/image copy 2.png"
+  },
+  "image:elctronics/image copy.png": {
+    "title": "Elctronics",
+    "caption": "Image from the Elctronics category.",
+    "filename": "elctronics/image copy.png",
+    "type": "image",
+    "source": "elctronics/image copy.png"
+  },
+  "image:elctronics/image.png": {
+    "title": "Elctronics",
+    "caption": "Image from the Elctronics category.",
+    "filename": "elctronics/image.png",
+    "type": "image",
+    "source": "elctronics/image.png"
+  },
+  "image:human_faces/aarav_pic.jpeg": {
+    "title": "Aarav's Image",
+    "caption": "A personal image of Aarav.",
+    "filename": "human_faces/aarav_pic.jpeg",
+    "type": "image",
+    "source": "human_faces/aarav_pic.jpeg"
+  },
+  "image:human_faces/image copy 2.png": {
+    "title": "Human Faces",
+    "caption": "Image from the Human Faces category.",
+    "filename": "human_faces/image copy 2.png",
+    "type": "image",
+    "source": "human_faces/image copy 2.png"
+  },
+  "image:human_faces/image copy 3.png": {
+    "title": "Human Faces",
+    "caption": "Image from the Human Faces category.",
+    "filename": "human_faces/image copy 3.png",
+    "type": "image",
+    "source": "human_faces/image copy 3.png"
+  },
+  "image:human_faces/image copy 4.png": {
+    "title": "Human Faces",
+    "caption": "Image from the Human Faces category.",
+    "filename": "human_faces/image copy 4.png",
+    "type": "image",
+    "source": "human_faces/image copy 4.png"
+  },
+  "image:human_faces/image copy 5.png": {
+    "title": "Human Faces",
+    "caption": "Image from the Human Faces category.",
+    "filename": "human_faces/image copy 5.png",
+    "type": "image",
+    "source": "human_faces/image copy 5.png"
+  },
+  "image:human_faces/image copy 6.png": {
+    "title": "Human Faces",
+    "caption": "Image from the Human Faces category.",
+    "filename": "human_faces/image copy 6.png",
+    "type": "image",
+    "source": "human_faces/image copy 6.png"
+  },
+  "image:human_faces/image copy 7.png": {
+    "title": "Human Faces",
+    "caption": "Image from the Human Faces category.",
+    "filename": "human_faces/image copy 7.png",
+    "type": "image",
+    "source": "human_faces/image copy 7.png"
+  },
+  "image:human_faces/image copy 8.png": {
+    "title": "Human Faces",
+    "caption": "Image from the Human Faces category.",
+    "filename": "human_faces/image copy 8.png",
+    "type": "image",
+    "source": "human_faces/image copy 8.png"
+  },
+  "image:human_faces/image copy 9.png": {
+    "title": "Human Faces",
+    "caption": "Image from the Human Faces category.",
+    "filename": "human_faces/image copy 9.png",
+    "type": "image",
+    "source": "human_faces/image copy 9.png"
+  },
+  "image:human_faces/image copy.png": {
+    "title": "Human Faces",
+    "caption": "Image from the Human Faces category.",
+    "filename": "human_faces/image copy.png",
+    "type": "image",
+    "source": "human_faces/image copy.png"
+  },
+  "image:human_faces/image.png": {
+    "title": "Human Faces",
+    "caption": "Image from the Human Faces category.",
+    "filename": "human_faces/image.png",
+    "type": "image",
+    "source": "human_faces/image.png"
+  },
+  "image:mountain/image copy 2.png": {
+    "title": "Mountain",
+    "caption": "Image from the Mountain category.",
+    "filename": "mountain/image copy 2.png",
+    "type": "image",
+    "source": "mountain/image copy 2.png"
+  },
+  "image:mountain/image copy 3.png": {
+    "title": "Mountain",
+    "caption": "Image from the Mountain category.",
+    "filename": "mountain/image copy 3.png",
+    "type": "image",
+    "source": "mountain/image copy 3.png"
+  },
+  "image:mountain/image copy 4.png": {
+    "title": "Mountain",
+    "caption": "Image from the Mountain category.",
+    "filename": "mountain/image copy 4.png",
+    "type": "image",
+    "source": "mountain/image copy 4.png"
+  },
+  "image:mountain/image copy 5.png": {
+    "title": "Mountain",
+    "caption": "Image from the Mountain category.",
+    "filename": "mountain/image copy 5.png",
+    "type": "image",
+    "source": "mountain/image copy 5.png"
+  },
+  "image:mountain/image copy 6.png": {
+    "title": "Mountain",
+    "caption": "Image from the Mountain category.",
+    "filename": "mountain/image copy 6.png",
+    "type": "image",
+    "source": "mountain/image copy 6.png"
+  },
+  "image:mountain/image copy.png": {
+    "title": "Mountain",
+    "caption": "Image from the Mountain category.",
+    "filename": "mountain/image copy.png",
+    "type": "image",
+    "source": "mountain/image copy.png"
+  },
+  "image:mountain/image.png": {
+    "title": "Mountain",
+    "caption": "Image from the Mountain category.",
+    "filename": "mountain/image.png",
+    "type": "image",
+    "source": "mountain/image.png"
+  },
+  "image:nature/image copy 2.png": {
+    "title": "Nature",
+    "caption": "Image from the Nature category.",
+    "filename": "nature/image copy 2.png",
+    "type": "image",
+    "source": "nature/image copy 2.png"
+  },
+  "image:nature/image copy 3.png": {
+    "title": "Nature",
+    "caption": "Image from the Nature category.",
+    "filename": "nature/image copy 3.png",
+    "type": "image",
+    "source": "nature/image copy 3.png"
+  },
+  "image:nature/image copy.png": {
+    "title": "Nature",
+    "caption": "Image from the Nature category.",
+    "filename": "nature/image copy.png",
+    "type": "image",
+    "source": "nature/image copy.png"
+  },
+  "image:nature/image.png": {
+    "title": "Nature",
+    "caption": "Image from the Nature category.",
+    "filename": "nature/image.png",
+    "type": "image",
+    "source": "nature/image.png"
   }
 }

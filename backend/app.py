@@ -1,11 +1,13 @@
 import io
 import os
 import json
+import re
 import uuid
 from typing import List, Optional
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from embeddings import embed_text, embed_image_bytes
@@ -20,8 +22,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.mount("/data/images", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "data", "images")), name="images")
 
 store = FaissStore(path=os.path.join(os.path.dirname(__file__), "store"))
+MAX_IMAGE_DISTANCE = 115.0
 
 class QueryRequest(BaseModel):
     query: str
@@ -31,6 +35,52 @@ class IngestTextRequest(BaseModel):
     content: str
     title: Optional[str] = None
     metadata: Optional[dict] = None
+
+
+def query_terms(query: str) -> List[str]:
+    return [term for term in re.findall(r"[a-z0-9]+", query.lower()) if len(term) > 2]
+
+
+def rerank_hits(query: str, hits: List[dict], top_k: int) -> List[dict]:
+    terms = query_terms(query)
+    if not terms:
+        return hits[:top_k]
+
+    def lexical_score(hit: dict) -> int:
+        metadata = hit.get("metadata", {})
+        searchable_text = " ".join(
+            str(metadata.get(field, ""))
+            for field in ("title", "content", "caption", "source", "filename")
+        ).lower()
+        return sum(searchable_text.count(term) for term in terms)
+
+    ranked_hits = sorted(
+        hits,
+        key=lambda hit: (-lexical_score(hit), hit.get("score", float("inf"))),
+    )
+    return ranked_hits[:top_k]
+
+
+def build_retrieval_answer(query: str, hits: List[dict]) -> str:
+    if not hits:
+        return f'I could not find anything in the indexed documents for: "{query}".'
+
+    useful_parts = []
+    for hit in hits:
+        metadata = hit.get("metadata", {})
+        title = metadata.get("title") or metadata.get("source") or "Untitled"
+        content = metadata.get("content") or metadata.get("caption") or ""
+        source = metadata.get("source") or metadata.get("filename") or "unknown"
+        if not content:
+            continue
+        useful_parts.append(f"{title} ({source}): {content}")
+
+    if not useful_parts:
+        return f'I found related indexed items for: "{query}", but they do not have text or captions to summarize.'
+
+    answer = "Based on your indexed data, I found these relevant results:\n\n"
+    answer += "\n\n".join(useful_parts[:3])
+    return answer
 
 @app.get("/")
 def root():
@@ -85,15 +135,44 @@ def query(request: QueryRequest):
     hits = store.search(query_vector, top_k=request.top_k)
     return {"query": request.query, "results": hits}
 
+@app.post("/query/image")
+async def query_image(file: UploadFile = File(...), top_k: int = Form(5)):
+    contents = await file.read()
+    if not contents:
+        raise HTTPException(status_code=400, detail="Image file is required")
+
+    query_vector = embed_image_bytes(contents)
+    raw_hits = store.search(query_vector, top_k=store.count())
+    image_hits = [hit for hit in raw_hits if hit.get("metadata", {}).get("type") == "image"]
+    confident_hits = [hit for hit in image_hits if hit.get("score", float("inf")) <= MAX_IMAGE_DISTANCE]
+    return {
+        "filename": file.filename,
+        "results": confident_hits[:top_k],
+        "raw_result_count": len(image_hits),
+        "threshold": MAX_IMAGE_DISTANCE,
+        "best_score": image_hits[0]["score"] if image_hits else None,
+        "message": None if confident_hits else "No confident image match found in your indexed images.",
+    }
+
 @app.post("/ask")
 def ask(request: QueryRequest):
     if not request.query:
         raise HTTPException(status_code=400, detail="Query text is required")
 
     query_vector = embed_text(request.query)
-    hits = store.search(query_vector, top_k=request.top_k)
-    answer = generate_answer(request.query, hits)
-    return {"query": request.query, "answer": answer, "sources": hits}
+    requested_top_k = request.top_k or 5
+    candidate_count = max(requested_top_k, 12)
+    candidates = store.search(query_vector, top_k=candidate_count)
+    hits = rerank_hits(request.query, candidates, requested_top_k)
+    try:
+        answer = generate_answer(request.query, hits)
+        mode = "groq"
+    except Exception as exc:
+        answer = build_retrieval_answer(request.query, hits)
+        mode = "retrieval_fallback"
+        return {"query": request.query, "answer": answer, "sources": hits, "mode": mode, "warning": str(exc)}
+
+    return {"query": request.query, "answer": answer, "sources": hits, "mode": mode}
 
 @app.get("/documents")
 def documents():

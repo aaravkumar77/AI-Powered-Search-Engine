@@ -1,150 +1,285 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 const API_BASE = 'http://localhost:8000'
 
+function imageUrl(metadata) {
+  if (metadata?.type !== 'image' || !metadata.filename) return null
+  const safePath = metadata.filename.split('/').map(encodeURIComponent).join('/')
+  return `${API_BASE}/data/images/${safePath}`
+}
+
+function ResultCard({ result }) {
+  const metadata = result.metadata || {}
+  const url = imageUrl(metadata)
+  const preview = metadata.content || metadata.caption || 'No preview available.'
+
+  return (
+    <article className="result-card">
+      {url && <img className="result-image" src={url} alt={metadata.title || metadata.filename} />}
+      <div>
+        <div className="result-top">
+          <strong>{metadata.title || result.id}</strong>
+          <span>{metadata.type || 'unknown'}</span>
+        </div>
+        <p>{preview.slice(0, 220)}{preview.length > 220 ? '...' : ''}</p>
+        <small>Score: {Number(result.score).toFixed(3)} | Source: {metadata.source || metadata.filename || result.id}</small>
+      </div>
+    </article>
+  )
+}
+
+function getAnswerSource(answer, answerMeta) {
+  if (answerMeta.mode === 'retrieval_fallback') {
+    return {
+      label: 'Retrieved data only',
+      detail: 'Groq was not available, so this answer was built directly from your indexed results.',
+      tone: 'warning',
+    }
+  }
+
+  if (answer.startsWith('I could not find this in the indexed documents.')) {
+    return {
+      label: 'Outside indexed data',
+      detail: 'This was not found in your retrieved documents, so Groq gave a general answer.',
+      tone: 'notice',
+    }
+  }
+
+  return {
+    label: 'Aarav RAG + Groq',
+    detail: 'Groq generated this answer using your retrieved FAISS context.',
+    tone: 'success',
+  }
+}
+
 function App() {
   const [query, setQuery] = useState('')
+  const [answer, setAnswer] = useState('')
+  const [answerMeta, setAnswerMeta] = useState({ mode: '', warning: '' })
   const [results, setResults] = useState([])
-  const [text, setText] = useState('')
-  const [textTitle, setTextTitle] = useState('')
   const [imageFile, setImageFile] = useState(null)
-  const [imageTitle, setImageTitle] = useState('')
+  const [imagePreview, setImagePreview] = useState('')
+  const [imageMessage, setImageMessage] = useState('')
+  const [history, setHistory] = useState([])
   const [status, setStatus] = useState('Ready')
 
-  const handleQuery = async (e) => {
-    e.preventDefault()
+  const imageResults = useMemo(
+    () => results.filter((result) => result.metadata?.type === 'image'),
+    [results],
+  )
+  const answerSource = answer ? getAnswerSource(answer, answerMeta) : null
+
+  const addHistory = (label, type) => {
+    setHistory((items) => [{ label, type, time: new Date().toLocaleTimeString() }, ...items].slice(0, 6))
+  }
+
+  const handleAsk = async (event) => {
+    event.preventDefault()
     if (!query.trim()) return
-    setStatus('Searching...')
+
+    setStatus('Searching your RAG...')
+    setAnswer('')
+    setAnswerMeta({ mode: '', warning: '' })
+    setImageMessage('')
+
     try {
-      const response = await fetch(`${API_BASE}/query`, {
+      const response = await fetch(`${API_BASE}/ask`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query, top_k: 5 }),
       })
       const data = await response.json()
-      setResults(data.results || [])
-      setStatus('Search complete')
+      if (!response.ok) {
+        throw new Error(data.detail || 'Backend request failed')
+      }
+
+      setAnswer(data.answer || 'No answer returned.')
+      setAnswerMeta({ mode: data.mode || '', warning: data.warning || '' })
+      setResults(data.sources || [])
+      addHistory(query, 'Text query')
+      setStatus(data.mode === 'retrieval_fallback' ? 'Retrieved answer ready' : 'Groq answer ready')
     } catch (error) {
-      setStatus('Error searching')
+      setStatus(error.message || 'Backend or Groq error')
       console.error(error)
     }
   }
 
-  const handleTextIngest = async (e) => {
-    e.preventDefault()
-    if (!text.trim()) return
-    setStatus('Indexing text...')
-    try {
-      await fetch(`${API_BASE}/ingest/text`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: text, title: textTitle || 'Text document' }),
-      })
-      setText('')
-      setTextTitle('')
-      setStatus('Text indexed')
-    } catch (error) {
-      setStatus('Error indexing text')
-      console.error(error)
-    }
+  const handleImageChange = (event) => {
+    const file = event.target.files?.[0]
+    setImageFile(file || null)
+    setImagePreview(file ? URL.createObjectURL(file) : '')
   }
 
-  const handleImageIngest = async (e) => {
-    e.preventDefault()
+  const handleImageSearch = async () => {
     if (!imageFile) return
-    setStatus('Indexing image...')
+
+    setStatus('Finding related images...')
+    setAnswer('')
+    setAnswerMeta({ mode: '', warning: '' })
+    setImageMessage('')
+
     const form = new FormData()
     form.append('file', imageFile)
-    form.append('title', imageTitle || imageFile.name)
+    form.append('top_k', '5')
+
     try {
-      await fetch(`${API_BASE}/ingest/image`, {
+      const response = await fetch(`${API_BASE}/query/image`, {
         method: 'POST',
         body: form,
       })
-      setImageFile(null)
-      setImageTitle('')
-      setStatus('Image indexed')
-      document.getElementById('image-file-input').value = ''
+      const data = await response.json()
+
+      setResults(data.results || [])
+      addHistory(imageFile.name, 'Image query')
+      setImageMessage(data.message || '')
+      setStatus(data.message ? 'No confident image match' : 'Related images found')
     } catch (error) {
-      setStatus('Error indexing image')
+      setStatus('Image search error')
       console.error(error)
     }
   }
 
-  return (
-    <div className="app-shell">
-      <header>
-        <h1>AI-Powered Search Engine</h1>
-        <p>Index text and image documents, then ask a question.</p>
-      </header>
+  const handleClear = () => {
+    setQuery('')
+    setAnswer('')
+    setAnswerMeta({ mode: '', warning: '' })
+    setResults([])
+    setImageFile(null)
+    setImagePreview('')
+    setImageMessage('')
+    setStatus('Ready')
+    const input = document.getElementById('image-query')
+    if (input) input.value = ''
+  }
 
-      <section className="panel">
-        <h2>Search</h2>
-        <form onSubmit={handleQuery}>
-          <textarea
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Ask something..."
-            rows={3}
-          />
-          <button type="submit">Search</button>
-        </form>
-        <div className="results">
-          {results.length === 0 ? <p>No results yet.</p> : (
-            <ul>
-              {results.map((result) => (
-                <li key={result.id}>
-                  <strong>{result.metadata.title || result.id}</strong>
-                  <p>type: {result.metadata.type || 'unknown'}</p>
-                  <p>score: {result.score.toFixed(4)}</p>
-                  {result.metadata.content && <p>{result.metadata.content.slice(0, 200)}...</p>}
+  const handleClearHistory = () => {
+    setHistory([])
+  }
+
+  const handleDeleteHistoryItem = (itemIndex) => {
+    setHistory((items) => items.filter((_, index) => index !== itemIndex))
+  }
+
+  return (
+    <main className="app-shell">
+      <section className="hero">
+        <div>
+          <p className="eyebrow">Multimodal RAG Demo</p>
+          <h1>AI POWERED RAG Search Engine </h1>
+          <p className="subtitle">
+            Ask questions from your indexed text and search related images with CLIP, FAISS, and Groq.
+          </p>
+        </div>
+        <div className="status-pill">{status}</div>
+      </section>
+
+      <section className="workspace">
+        <div className="main-panel">
+          <form className="ask-box" onSubmit={handleAsk}>
+            <label htmlFor="query">Ask anything from your data</label>
+            <textarea
+              id="query"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Example: What is RAG? What is the secret project code?"
+              rows={4}
+            />
+            <div className="actions">
+              <button type="submit">Search</button>
+              <button type="button" className="secondary" onClick={handleClear}>Clear</button>
+            </div>
+          </form>
+
+          <div className="upload-box">
+            <div>
+              <label htmlFor="image-query">Upload image query</label>
+              <p>Upload an image to find visually related indexed images.</p>
+            </div>
+            <input id="image-query" type="file" accept="image/*" onChange={handleImageChange} />
+            {imagePreview && <img className="preview-image" src={imagePreview} alt="Uploaded preview" />}
+            <button type="button" onClick={handleImageSearch} disabled={!imageFile}>Find Related Images</button>
+          </div>
+
+          {answer && (
+            <section className="answer-panel">
+              <div className="answer-header">
+                <h2>Answer</h2>
+                {answerSource && <span className={`source-badge ${answerSource.tone}`}>{answerSource.label}</span>}
+              </div>
+              {answerSource && <p className="answer-source">{answerSource.detail}</p>}
+              {answerMeta.warning && <p className="answer-warning">{answerMeta.warning}</p>}
+              <p>{answer}</p>
+            </section>
+          )}
+
+          <section className="results-panel">
+            <div className="section-heading">
+              <h2>Sources</h2>
+              <span>{results.length} results</span>
+            </div>
+            {imageMessage ? (
+              <p className="empty match-warning">{imageMessage}</p>
+            ) : results.length === 0 ? (
+              <p className="empty">No results yet. Ask a question or upload an image.</p>
+            ) : (
+              <div className="result-list">
+                {results.map((result) => <ResultCard key={result.id} result={result} />)}
+              </div>
+            )}
+          </section>
+        </div>
+
+        <aside className="side-panel">
+          <h2>Related Images</h2>
+          {imageMessage ? (
+            <p className="empty match-warning">{imageMessage}</p>
+          ) : imageResults.length === 0 ? (
+            <p className="empty">Image matches will appear here.</p>
+          ) : (
+            <div className="image-grid">
+              {imageResults.map((result) => {
+                const metadata = result.metadata || {}
+                return (
+                  <div className="image-tile" key={result.id}>
+                    <img src={imageUrl(metadata)} alt={metadata.title || metadata.filename} />
+                    <span>{metadata.title || metadata.filename}</span>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+
+          <div className="side-heading">
+            <h2>History</h2>
+            {history.length > 0 && (
+              <button type="button" className="tiny-button" onClick={handleClearHistory}>Clear</button>
+            )}
+          </div>
+          {history.length === 0 ? (
+            <p className="empty">Your recent searches will show here.</p>
+          ) : (
+            <ul className="history-list">
+              {history.map((item, index) => (
+                <li key={`${item.label}-${index}`}>
+                  <div>
+                    <strong>{item.label}</strong>
+                    <span>{item.type} | {item.time}</span>
+                  </div>
+                  <button
+                    type="button"
+                    className="delete-history-button"
+                    onClick={() => handleDeleteHistoryItem(index)}
+                    aria-label={`Delete ${item.label} from history`}
+                  >
+                    Delete
+                  </button>
                 </li>
               ))}
             </ul>
           )}
-        </div>
+        </aside>
       </section>
-
-      <section className="panel split">
-        <div>
-          <h2>Index text</h2>
-          <form onSubmit={handleTextIngest}>
-            <input
-              value={textTitle}
-              onChange={(e) => setTextTitle(e.target.value)}
-              placeholder="Document title"
-            />
-            <textarea
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              placeholder="Paste document text here"
-              rows={5}
-            />
-            <button type="submit">Add text</button>
-          </form>
-        </div>
-
-        <div>
-          <h2>Index image</h2>
-          <form onSubmit={handleImageIngest}>
-            <input
-              id="image-file-input"
-              type="file"
-              accept="image/*"
-              onChange={(e) => setImageFile(e.target.files?.[0] || null)}
-            />
-            <input
-              value={imageTitle}
-              onChange={(e) => setImageTitle(e.target.value)}
-              placeholder="Image title or caption"
-            />
-            <button type="submit">Add image</button>
-          </form>
-        </div>
-      </section>
-
-      <footer>{status}</footer>
-    </div>
+    </main>
   )
 }
 
