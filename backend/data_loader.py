@@ -18,7 +18,7 @@ def ingest_text_files(store: FaissStore, text_dir: Path):
             continue
         title = path.stem
         vector = embed_text(content)
-        item_id = path.stem + '-' + str(abs(hash(path)))
+        item_id = f'text:{path.name}'
         metadata = {
             'title': title,
             'content': content,
@@ -40,7 +40,7 @@ def ingest_image_files(store: FaissStore, image_dir: Path):
             continue
         data = path.read_bytes()
         vector = embed_image_bytes(data)
-        item_id = path.stem + '-' + str(abs(hash(path)))
+        item_id = f'image:{path.name}'
         metadata = {
             'title': metadata_map.get(path.name, {}).get('title', path.stem),
             'caption': metadata_map.get(path.name, {}).get('caption', ''),
@@ -54,7 +54,8 @@ def ingest_image_files(store: FaissStore, image_dir: Path):
 
 def main():
     base = Path(__file__).parent
-    store = FaissStore(path=base / 'store')
+    store = FaissStore(path=base / 'store', load_existing=False)
+    print('Cleared existing FAISS store')
     ingest_text_files(store, base / 'data' / 'text')
     ingest_image_files(store, base / 'data' / 'images')
     print(f'Total documents indexed: {store.count()}')

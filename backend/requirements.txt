@@ -6,3 +6,5 @@ faiss-cpu
 python-multipart
 pillow
 sentence-transformers
+google-genai
+python-dotenv

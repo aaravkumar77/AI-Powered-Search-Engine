@@ -1,26 +1,22 @@
 {
-  "image.png": {
-    "title": "Dog",
-    "caption": "A domestic dog commonly kept as a pet."
+  "aarav_pic.jpeg": {
+    "title": "Aarav's Image",
+    "caption": "A personal image of Aarav."
   },
-
-  "image copy.png": {
+  "cat1.png": {
+    "title": "Cat",
+    "caption": "A domestic cat."
+  },
+  "dog1.png": {
+    "title": "Dog",
+    "caption": "A dog holding a flower in its mouth."
+  },
+  "dog2.png": {
     "title": "Dog",
     "caption": "A dog standing outdoors."
   },
-
-  "image copy 2.png": {
+  "dog3.png": {
     "title": "Dog",
-    "caption": "A domestic Dog take flower in mouth."
-  },
-
-  "image copy 3.png": {
-    "title": "Car",
-    "caption": "A domestic car"
-  },
-
-  "myimg.jpeg" :{
-    "title": "My Image",
-    "caption": "Aarav's image"
+    "caption": "A domestic dog commonly kept as a pet."
   }
 }

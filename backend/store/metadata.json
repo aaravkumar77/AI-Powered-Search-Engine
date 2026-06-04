@@ -1,138 +1,73 @@
 {
-  "aarav_project-7989928267608408789": {
+  "text:aarav_project.txt": {
     "title": "aarav_project",
     "content": "FoodLens AI is an advanced multimodal search engine project developed by Aarav as part of his college portfolio. The primary goal of the project is to demonstrate how Retrieval-Augmented Generation (RAG) can be combined with computer vision and natural language processing to create an intelligent search experience.\n\nUnlike traditional search engines that only rely on keyword matching, FoodLens AI uses modern embedding techniques to understand the semantic meaning of both text and images. The system is capable of processing user queries in multiple formats, including text-based questions and uploaded images. This enables users to search for information using natural language or visual content.\n\nThe project utilizes the CLIP (Contrastive Language-Image Pretraining) model to generate embeddings for both images and text. Since CLIP maps images and text into the same vector space, the system can perform cross-modal retrieval. For example, a user can upload an image of a dog and retrieve relevant textual information, or search using text and retrieve related images.\n\nTo support efficient retrieval, the project uses FAISS (Facebook AI Similarity Search) as a vector database. All text documents and image embeddings are indexed and stored in FAISS. When a user submits a query, the query is converted into an embedding and compared against the stored vectors. The system then retrieves the most relevant documents and images based on semantic similarity.\n\nFoodLens AI follows the Retrieval-Augmented Generation architecture. Instead of relying solely on a Large Language Model, the system first retrieves relevant information from its knowledge base. The retrieved context is then provided to the language model, allowing it to generate more accurate, relevant, and context-aware responses. This approach helps reduce hallucinations and improves answer quality.\n\nThe project contains a custom knowledge base consisting of text documents covering topics such as Artificial Intelligence, Machine Learning, Computer Vision, Vector Databases, and Retrieval-Augmented Generation. It also includes image data with metadata and captions that can be searched and retrieved through vector similarity.\n\nThe backend of the application is implemented in Python and uses FastAPI for API development. The frontend provides an intuitive interface where users can enter questions, upload images, view retrieved results, and receive AI-generated answers. The project demonstrates the practical integration of embeddings, vector databases, multimodal retrieval, and modern generative AI techniques.\n\nFoodLens AI serves as a complete end-to-end demonstration of a real-world multimodal RAG system. It showcases how images and text can be indexed, searched, retrieved, and used as context for intelligent answer generation, making it a valuable learning project in the fields of Artificial Intelligence, Machine Learning, Computer Vision, and Generative AI.",
     "type": "text",
     "source": "aarav_project.txt"
   },
-  "ai-6091604708139925868": {
+  "text:ai.txt": {
     "title": "ai",
     "content": "Artificial Intelligence (AI) is a branch of computer science focused\n on creating systems capable of performing tasks \n that normally require human intelligence. \n These tasks include learning, reasoning, \n problem solving, perception, \n and language understanding. \n AI is widely used in recommendation systems, virtual assistants, healthcare, finance, and autonomous vehicles. Modern AI systems often use machine learning and deep learning techniques to improve performance through experience and data.",
     "type": "text",
     "source": "ai.txt"
   },
-  "ai_rag_intro-8597443880184640692": {
+  "text:ai_rag_intro.txt": {
     "title": "ai_rag_intro",
     "content": "RAG stands for Retrieval-Augmented Generation. In this project, a query is transformed into a vector, which is then used to find the most relevant documents in a vector store. The retrieved documents are used to provide context and improve answer quality.\n\nThis demo shows how text and image data can both be indexed and retrieved using a shared vector database. The search engine is useful for answering questions about a document corpus and for finding relevant image content by caption or metadata.\n\nRetrieval-Augmented Generation (RAG) combines information retrieval with large language models. Instead of relying only on the knowledge stored in the model, RAG retrieves relevant documents from an external knowledge base and provides them as context to the language model. This improves answer accuracy, reduces hallucinations, and allows the system to use up-to-date information. RAG systems typically use embeddings, vector databases, and similarity search.",
     "type": "text",
     "source": "ai_rag_intro.txt"
   },
-  "manish._project-6126471917835541577": {
+  "text:manish._project.txt": {
     "title": "manish._project",
     "content": "Manish Project Portfolio is a collection of software projects developed by Manish to demonstrate his skills in full-stack development, artificial intelligence, and modern web technologies. The portfolio includes multiple applications that solve real-world problems and showcase expertise in frontend development, backend development, databases, APIs, and machine learning integration.\n\nOne of the major projects in the portfolio is a modern E-Commerce Platform. The e-commerce application is designed to provide users with a complete online shopping experience. Customers can browse products, search for items, filter products by category, add products to a shopping cart, and complete purchases through a secure checkout process. The platform supports user authentication, product management, order tracking, and responsive design to ensure accessibility across desktop and mobile devices.\n\nThe e-commerce system includes an administrative dashboard where administrators can manage products, categories, inventory, and customer orders. The admin panel provides analytics and reporting features that help monitor sales performance and customer activity. The project demonstrates the implementation of REST APIs, database management, authentication systems, and scalable web application architecture.\n\nAnother significant project in the portfolio is the Essay Analyzer System. The Essay Analyzer is an AI-powered application designed to evaluate written content and provide detailed feedback to users. The system accepts essays submitted by students or writers and performs multiple forms of analysis. It examines grammar, spelling, sentence structure, readability, coherence, and overall writing quality.\n\nThe Essay Analyzer uses Natural Language Processing techniques to identify errors and generate suggestions for improvement. It can calculate readability scores, estimate writing complexity, analyze vocabulary usage, and detect common grammatical mistakes. The goal of the system is to help users improve their writing skills through automated feedback and intelligent recommendations.\n\nThe project also includes features such as keyword extraction, topic identification, sentiment analysis, and summary generation. These capabilities enable users to better understand the strengths and weaknesses of their essays. By leveraging AI models and language processing techniques, the Essay Analyzer provides valuable insights that would otherwise require manual review.\n\nBoth projects emphasize user experience, performance, and scalability. The applications were built using modern software development practices, including modular architecture, API-driven communication, responsive interfaces, and efficient database design. Security, maintainability, and code quality were considered throughout the development process.\n\nThe E-Commerce Platform and Essay Analyzer collectively demonstrate Manish's ability to design, develop, and deploy complete software solutions. These projects showcase practical knowledge of web development, database systems, cloud technologies, artificial intelligence, and machine learning concepts. Together, they form a strong portfolio that highlights problem-solving skills and the ability to build impactful technology products.\n\nThe portfolio continues to evolve as new features and improvements are added. Future enhancements may include advanced recommendation systems for the e-commerce platform, AI-powered product search, personalized shopping experiences, and more sophisticated essay evaluation models. These ongoing developments reflect a commitment to continuous learning and innovation in software engineering and artificial intelligence.",
     "type": "text",
     "source": "manish._project.txt"
   },
-  "ml-4178742162256545923": {
+  "text:ml.txt": {
     "title": "ml",
     "content": "Machine Learning is a subset of Artificial Intelligence that enables computers to learn patterns from data and make predictions without being explicitly programmed. Machine learning algorithms are commonly categorized into supervised learning, unsupervised learning, and reinforcement learning. Applications include spam detection, image recognition, recommendation systems, and predictive analytics.",
     "type": "text",
     "source": "ml.txt"
   },
-  "image copy 2-490458551165347061": {
-    "title": "Dog",
-    "caption": "A domestic Dog take flower in mouth.",
-    "filename": "image copy 2.png",
-    "type": "image",
-    "source": "image copy 2.png"
-  },
-  "image copy 3-6054689948732887046": {
-    "title": "Car",
-    "caption": "A domestic car",
-    "filename": "image copy 3.png",
-    "type": "image",
-    "source": "image copy 3.png"
-  },
-  "image copy-8998601682249597130": {
-    "title": "Dog",
-    "caption": "A dog standing outdoors.",
-    "filename": "image copy.png",
-    "type": "image",
-    "source": "image copy.png"
-  },
-  "image-4404937207473965331": {
-    "title": "Dog",
-    "caption": "A domestic dog commonly kept as a pet.",
-    "filename": "image.png",
-    "type": "image",
-    "source": "image.png"
-  },
-  "myimg-4449517290066949463": {
-    "title": "My Image",
-    "caption": "Aarav's image",
-    "filename": "myimg.jpeg",
-    "type": "image",
-    "source": "myimg.jpeg"
-  },
-  "aarav_project-7799156988156339387": {
-    "title": "aarav_project",
-    "content": "FoodLens AI is an advanced multimodal search engine project developed by Aarav as part of his college portfolio. The primary goal of the project is to demonstrate how Retrieval-Augmented Generation (RAG) can be combined with computer vision and natural language processing to create an intelligent search experience.\n\nUnlike traditional search engines that only rely on keyword matching, FoodLens AI uses modern embedding techniques to understand the semantic meaning of both text and images. The system is capable of processing user queries in multiple formats, including text-based questions and uploaded images. This enables users to search for information using natural language or visual content.\n\nThe project utilizes the CLIP (Contrastive Language-Image Pretraining) model to generate embeddings for both images and text. Since CLIP maps images and text into the same vector space, the system can perform cross-modal retrieval. For example, a user can upload an image of a dog and retrieve relevant textual information, or search using text and retrieve related images.\n\nTo support efficient retrieval, the project uses FAISS (Facebook AI Similarity Search) as a vector database. All text documents and image embeddings are indexed and stored in FAISS. When a user submits a query, the query is converted into an embedding and compared against the stored vectors. The system then retrieves the most relevant documents and images based on semantic similarity.\n\nFoodLens AI follows the Retrieval-Augmented Generation architecture. Instead of relying solely on a Large Language Model, the system first retrieves relevant information from its knowledge base. The retrieved context is then provided to the language model, allowing it to generate more accurate, relevant, and context-aware responses. This approach helps reduce hallucinations and improves answer quality.\n\nThe project contains a custom knowledge base consisting of text documents covering topics such as Artificial Intelligence, Machine Learning, Computer Vision, Vector Databases, and Retrieval-Augmented Generation. It also includes image data with metadata and captions that can be searched and retrieved through vector similarity.\n\nThe backend of the application is implemented in Python and uses FastAPI for API development. The frontend provides an intuitive interface where users can enter questions, upload images, view retrieved results, and receive AI-generated answers. The project demonstrates the practical integration of embeddings, vector databases, multimodal retrieval, and modern generative AI techniques.\n\nFoodLens AI serves as a complete end-to-end demonstration of a real-world multimodal RAG system. It showcases how images and text can be indexed, searched, retrieved, and used as context for intelligent answer generation, making it a valuable learning project in the fields of Artificial Intelligence, Machine Learning, Computer Vision, and Generative AI.",
-    "type": "text",
-    "source": "aarav_project.txt"
-  },
-  "ai-8212904733477353138": {
-    "title": "ai",
-    "content": "Artificial Intelligence (AI) is a branch of computer science focused\n on creating systems capable of performing tasks \n that normally require human intelligence. \n These tasks include learning, reasoning, \n problem solving, perception, \n and language understanding. \n AI is widely used in recommendation systems, virtual assistants, healthcare, finance, and autonomous vehicles. Modern AI systems often use machine learning and deep learning techniques to improve performance through experience and data.",
-    "type": "text",
-    "source": "ai.txt"
-  },
-  "ai_rag_intro-5221527004330657201": {
-    "title": "ai_rag_intro",
-    "content": "RAG stands for Retrieval-Augmented Generation. In this project, a query is transformed into a vector, which is then used to find the most relevant documents in a vector store. The retrieved documents are used to provide context and improve answer quality.\n\nThis demo shows how text and image data can both be indexed and retrieved using a shared vector database. The search engine is useful for answering questions about a document corpus and for finding relevant image content by caption or metadata.\n\nRetrieval-Augmented Generation (RAG) combines information retrieval with large language models. Instead of relying only on the knowledge stored in the model, RAG retrieves relevant documents from an external knowledge base and provides them as context to the language model. This improves answer accuracy, reduces hallucinations, and allows the system to use up-to-date information. RAG systems typically use embeddings, vector databases, and similarity search.",
-    "type": "text",
-    "source": "ai_rag_intro.txt"
-  },
-  "manish._project-676412465070547212": {
-    "title": "manish._project",
-    "content": "Manish Project Portfolio is a collection of software projects developed by Manish to demonstrate his skills in full-stack development, artificial intelligence, and modern web technologies. The portfolio includes multiple applications that solve real-world problems and showcase expertise in frontend development, backend development, databases, APIs, and machine learning integration.\n\nOne of the major projects in the portfolio is a modern E-Commerce Platform. The e-commerce application is designed to provide users with a complete online shopping experience. Customers can browse products, search for items, filter products by category, add products to a shopping cart, and complete purchases through a secure checkout process. The platform supports user authentication, product management, order tracking, and responsive design to ensure accessibility across desktop and mobile devices.\n\nThe e-commerce system includes an administrative dashboard where administrators can manage products, categories, inventory, and customer orders. The admin panel provides analytics and reporting features that help monitor sales performance and customer activity. The project demonstrates the implementation of REST APIs, database management, authentication systems, and scalable web application architecture.\n\nAnother significant project in the portfolio is the Essay Analyzer System. The Essay Analyzer is an AI-powered application designed to evaluate written content and provide detailed feedback to users. The system accepts essays submitted by students or writers and performs multiple forms of analysis. It examines grammar, spelling, sentence structure, readability, coherence, and overall writing quality.\n\nThe Essay Analyzer uses Natural Language Processing techniques to identify errors and generate suggestions for improvement. It can calculate readability scores, estimate writing complexity, analyze vocabulary usage, and detect common grammatical mistakes. The goal of the system is to help users improve their writing skills through automated feedback and intelligent recommendations.\n\nThe project also includes features such as keyword extraction, topic identification, sentiment analysis, and summary generation. These capabilities enable users to better understand the strengths and weaknesses of their essays. By leveraging AI models and language processing techniques, the Essay Analyzer provides valuable insights that would otherwise require manual review.\n\nBoth projects emphasize user experience, performance, and scalability. The applications were built using modern software development practices, including modular architecture, API-driven communication, responsive interfaces, and efficient database design. Security, maintainability, and code quality were considered throughout the development process.\n\nThe E-Commerce Platform and Essay Analyzer collectively demonstrate Manish's ability to design, develop, and deploy complete software solutions. These projects showcase practical knowledge of web development, database systems, cloud technologies, artificial intelligence, and machine learning concepts. Together, they form a strong portfolio that highlights problem-solving skills and the ability to build impactful technology products.\n\nThe portfolio continues to evolve as new features and improvements are added. Future enhancements may include advanced recommendation systems for the e-commerce platform, AI-powered product search, personalized shopping experiences, and more sophisticated essay evaluation models. These ongoing developments reflect a commitment to continuous learning and innovation in software engineering and artificial intelligence.",
-    "type": "text",
-    "source": "manish._project.txt"
-  },
-  "ml-5500835029970442733": {
-    "title": "ml",
-    "content": "Machine Learning is a subset of Artificial Intelligence that enables computers to learn patterns from data and make predictions without being explicitly programmed. Machine learning algorithms are commonly categorized into supervised learning, unsupervised learning, and reinforcement learning. Applications include spam detection, image recognition, recommendation systems, and predictive analytics.",
-    "type": "text",
-    "source": "ml.txt"
-  },
-  "secret_project-130082873337621843": {
+  "text:secret_project.txt": {
     "title": "secret_project",
     "content": "The secret project code is DRAGON-2025.",
     "type": "text",
     "source": "secret_project.txt"
   },
-  "image copy 2-1036758318045588804": {
+  "image:aarav_pic.jpeg": {
+    "title": "Aarav's Image",
+    "caption": "A personal image of Aarav.",
+    "filename": "aarav_pic.jpeg",
+    "type": "image",
+    "source": "aarav_pic.jpeg"
+  },
+  "image:cat1.png": {
+    "title": "Cat",
+    "caption": "A domestic cat.",
+    "filename": "cat1.png",
+    "type": "image",
+    "source": "cat1.png"
+  },
+  "image:dog1.png": {
     "title": "Dog",
-    "caption": "A domestic Dog take flower in mouth.",
-    "filename": "image copy 2.png",
+    "caption": "A dog holding a flower in its mouth.",
+    "filename": "dog1.png",
     "type": "image",
-    "source": "image copy 2.png"
+    "source": "dog1.png"
   },
-  "image copy 3-3121295156436051461": {
-    "title": "Car",
-    "caption": "A domestic car",
-    "filename": "image copy 3.png",
-    "type": "image",
-    "source": "image copy 3.png"
-  },
-  "image copy-5531839155775068456": {
+  "image:dog2.png": {
     "title": "Dog",
     "caption": "A dog standing outdoors.",
-    "filename": "image copy.png",
+    "filename": "dog2.png",
     "type": "image",
-    "source": "image copy.png"
+    "source": "dog2.png"
   },
-  "image-4759748985637829221": {
+  "image:dog3.png": {
     "title": "Dog",
     "caption": "A domestic dog commonly kept as a pet.",
-    "filename": "image.png",
+    "filename": "dog3.png",
     "type": "image",
-    "source": "image.png"
-  },
-  "myimg-7818819891874870803": {
-    "title": "My Image",
-    "caption": "Aarav's image",
-    "filename": "myimg.jpeg",
-    "type": "image",
-    "source": "myimg.jpeg"
+    "source": "dog3.png"
   }
 }

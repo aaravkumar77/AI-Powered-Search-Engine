@@ -6,7 +6,7 @@ import faiss
 import numpy as np
 
 class FaissStore:
-    def __init__(self, dim: int = 512, path: str = "store"):
+    def __init__(self, dim: int = 512, path: str = "store", load_existing: bool = True):
         self.dim = dim
         self.path = path
         self.index_path = os.path.join(path, "index.faiss")
@@ -14,7 +14,7 @@ class FaissStore:
         self.ids_path = os.path.join(path, "ids.json")
         os.makedirs(path, exist_ok=True)
 
-        if os.path.exists(self.index_path) and os.path.exists(self.meta_path) and os.path.exists(self.ids_path):
+        if load_existing and os.path.exists(self.index_path) and os.path.exists(self.meta_path) and os.path.exists(self.ids_path):
             self.index = faiss.read_index(self.index_path)
             with open(self.meta_path, "r", encoding="utf-8") as f:
                 self.metadata = json.load(f)
@@ -32,6 +32,12 @@ class FaissStore:
             json.dump(self.metadata, f, indent=2)
         with open(self.ids_path, "w", encoding="utf-8") as f:
             json.dump(self.ids, f, indent=2)
+
+    def reset(self):
+        self.index = faiss.IndexFlatL2(self.dim)
+        self.metadata = {}
+        self.ids = []
+        self._save()
 
     def add(self, item_id: str, vector: Any, metadata: Dict[str, Any]):
         vector = np.array(vector, dtype="float32").reshape(1, -1)

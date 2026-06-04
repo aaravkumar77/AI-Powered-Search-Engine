@@ -9,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from embeddings import embed_text, embed_image_bytes
+from llm import generate_answer
 from vector_store import FaissStore
 
 app = FastAPI()
@@ -83,6 +84,16 @@ def query(request: QueryRequest):
     query_vector = embed_text(request.query)
     hits = store.search(query_vector, top_k=request.top_k)
     return {"query": request.query, "results": hits}
+
+@app.post("/ask")
+def ask(request: QueryRequest):
+    if not request.query:
+        raise HTTPException(status_code=400, detail="Query text is required")
+
+    query_vector = embed_text(request.query)
+    hits = store.search(query_vector, top_k=request.top_k)
+    answer = generate_answer(request.query, hits)
+    return {"query": request.query, "answer": answer, "sources": hits}
 
 @app.get("/documents")
 def documents():
