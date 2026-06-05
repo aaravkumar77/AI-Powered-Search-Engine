@@ -5,5 +5,5 @@ numpy
 faiss-cpu
 python-multipart
 pillow
-sentence-transformers
 python-dotenv
+requests
