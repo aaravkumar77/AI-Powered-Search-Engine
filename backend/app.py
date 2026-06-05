@@ -1,6 +1,7 @@
 import io
-import os
 import json
+import logging
+import os
 import re
 import uuid
 from typing import List, Optional
@@ -14,6 +15,7 @@ from embeddings import embed_text, embed_image_bytes
 from llm import generate_answer
 from vector_store import FaissStore
 
+logger = logging.getLogger("uvicorn.error")
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -135,9 +137,13 @@ def query(request: QueryRequest):
     if not request.query:
         raise HTTPException(status_code=400, detail="Query text is required")
 
-    query_vector = embed_text(request.query)
-    hits = store.search(query_vector, top_k=request.top_k)
-    return {"query": request.query, "results": hits}
+    try:
+        query_vector = embed_text(request.query)
+        hits = store.search(query_vector, top_k=request.top_k)
+        return {"query": request.query, "results": hits}
+    except Exception as exc:
+        logger.exception("Error in /query")
+        raise HTTPException(status_code=500, detail=str(exc))
 
 @app.post("/query/image")
 async def query_image(file: UploadFile = File(...), top_k: int = Form(5)):
@@ -145,38 +151,46 @@ async def query_image(file: UploadFile = File(...), top_k: int = Form(5)):
     if not contents:
         raise HTTPException(status_code=400, detail="Image file is required")
 
-    query_vector = embed_image_bytes(contents)
-    raw_hits = store.search(query_vector, top_k=store.count())
-    image_hits = [hit for hit in raw_hits if hit.get("metadata", {}).get("type") == "image"]
-    confident_hits = [hit for hit in image_hits if hit.get("score", float("inf")) <= MAX_IMAGE_DISTANCE]
-    return {
-        "filename": file.filename,
-        "results": confident_hits[:top_k],
-        "raw_result_count": len(image_hits),
-        "threshold": MAX_IMAGE_DISTANCE,
-        "best_score": image_hits[0]["score"] if image_hits else None,
-        "message": None if confident_hits else "No confident image match found in your indexed images.",
-    }
+    try:
+        query_vector = embed_image_bytes(contents)
+        raw_hits = store.search(query_vector, top_k=store.count())
+        image_hits = [hit for hit in raw_hits if hit.get("metadata", {}).get("type") == "image"]
+        confident_hits = [hit for hit in image_hits if hit.get("score", float("inf")) <= MAX_IMAGE_DISTANCE]
+        return {
+            "filename": file.filename,
+            "results": confident_hits[:top_k],
+            "raw_result_count": len(image_hits),
+            "threshold": MAX_IMAGE_DISTANCE,
+            "best_score": image_hits[0]["score"] if image_hits else None,
+            "message": None if confident_hits else "No confident image match found in your indexed images.",
+        }
+    except Exception as exc:
+        logger.exception("Error in /query/image")
+        raise HTTPException(status_code=500, detail=str(exc))
 
 @app.post("/ask")
 def ask(request: QueryRequest):
     if not request.query:
         raise HTTPException(status_code=400, detail="Query text is required")
 
-    query_vector = embed_text(request.query)
-    requested_top_k = request.top_k or 5
-    candidate_count = max(requested_top_k, 12)
-    candidates = store.search(query_vector, top_k=candidate_count)
-    hits = rerank_hits(request.query, candidates, requested_top_k)
     try:
-        answer = generate_answer(request.query, hits)
-        mode = "groq"
-    except Exception as exc:
-        answer = build_retrieval_answer(request.query, hits)
-        mode = "retrieval_fallback"
-        return {"query": request.query, "answer": answer, "sources": hits, "mode": mode, "warning": str(exc)}
+        query_vector = embed_text(request.query)
+        requested_top_k = request.top_k or 5
+        candidate_count = max(requested_top_k, 12)
+        candidates = store.search(query_vector, top_k=candidate_count)
+        hits = rerank_hits(request.query, candidates, requested_top_k)
+        try:
+            answer = generate_answer(request.query, hits)
+            mode = "groq"
+        except Exception as exc:
+            answer = build_retrieval_answer(request.query, hits)
+            mode = "retrieval_fallback"
+            return {"query": request.query, "answer": answer, "sources": hits, "mode": mode, "warning": str(exc)}
 
-    return {"query": request.query, "answer": answer, "sources": hits, "mode": mode}
+        return {"query": request.query, "answer": answer, "sources": hits, "mode": mode}
+    except Exception as exc:
+        logger.exception("Error in /ask")
+        raise HTTPException(status_code=500, detail=str(exc))
 
 @app.get("/documents")
 def documents():

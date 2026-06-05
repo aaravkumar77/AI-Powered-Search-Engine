@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000'
+const API_BASE = (import.meta.env.VITE_API_BASE || 'http://localhost:8000').replace(/\/+$|^\s+|\s+$/g, '')
 
 function imageUrl(metadata) {
   if (metadata?.type !== 'image' || !metadata.filename) return null
@@ -88,9 +88,10 @@ function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query, top_k: 5 }),
       })
-      const data = await response.json()
+      const data = await response.json().catch(() => null)
       if (!response.ok) {
-        throw new Error(data.detail || 'Backend request failed')
+        const detail = data?.detail || data?.error || `Backend request failed (${response.status})`
+        throw new Error(detail)
       }
 
       setAnswer(data.answer || 'No answer returned.')
