@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 
-const API_BASE = 'http://localhost:8000'
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000'
 
 function imageUrl(metadata) {
   if (metadata?.type !== 'image' || !metadata.filename) return null
