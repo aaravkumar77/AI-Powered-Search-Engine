@@ -17,7 +17,7 @@ def _load_model():
     if _model is None:
         if SentenceTransformer is None:
             raise RuntimeError("sentence-transformers is required for embedding generation")
-        _model = SentenceTransformer("clip-ViT-B-32")
+        _model = SentenceTransformer("all-MiniLM-L6-v2")
     return _model
 
 

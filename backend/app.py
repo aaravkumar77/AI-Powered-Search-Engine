@@ -22,7 +22,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.mount("/data/images", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "data", "images")), name="images")
+# Mount images directory if it exists (for local development)
+# In production on Render, users upload images via /ingest/image API
+images_dir = os.path.join(os.path.dirname(__file__), "data", "images")
+if os.path.exists(images_dir):
+    app.mount("/data/images", StaticFiles(directory=images_dir), name="images")
 
 store = FaissStore(path=os.path.join(os.path.dirname(__file__), "store"))
 MAX_IMAGE_DISTANCE = 115.0

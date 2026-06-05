@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebooks - keep locally, don't deploy
+*.ipynb
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files - large, users will ingest via API
+data/images/
+data/text/
+
+# FAISS store - will be created at runtime
+# Keep this locally for testing
+# store/
+
+# Testing
+*.pytest_cache
+.coverage
+
+# Render deployment
+render.yaml
