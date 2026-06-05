@@ -88,6 +88,29 @@ def build_retrieval_answer(query: str, hits: List[dict]) -> str:
     answer += "\n\n".join(useful_parts[:3])
     return answer
 
+
+def lexical_search(query: str, top_k: int = 5) -> List[dict]:
+    terms = query_terms(query)
+    if not terms:
+        return []
+
+    hits = []
+    for item_id, metadata in store.metadata.items():
+        searchable_text = " ".join(
+            str(metadata.get(field, ""))
+            for field in ("title", "content", "caption", "source", "filename")
+        ).lower()
+        score = sum(searchable_text.count(term) for term in terms)
+        if score > 0:
+            hits.append({
+                "id": item_id,
+                "score": float(1.0 / (score + 1)),
+                "metadata": metadata,
+            })
+
+    hits.sort(key=lambda hit: hit["score"])
+    return hits[:top_k]
+
 @app.get("/")
 def root():
     return {"status": "AI search engine backend is running"}
@@ -142,8 +165,14 @@ def query(request: QueryRequest):
         hits = store.search(query_vector, top_k=request.top_k)
         return {"query": request.query, "results": hits}
     except Exception as exc:
-        logger.exception("Error in /query")
-        raise HTTPException(status_code=500, detail=str(exc))
+        logger.exception("Embedding failed in /query")
+        hits = lexical_search(request.query, top_k=request.top_k)
+        return {
+            "query": request.query,
+            "results": hits,
+            "mode": "lexical_fallback",
+            "warning": f"Embedding failed: {str(exc)}",
+        }
 
 @app.post("/query/image")
 async def query_image(file: UploadFile = File(...), top_k: int = Form(5)):
@@ -173,24 +202,34 @@ def ask(request: QueryRequest):
     if not request.query:
         raise HTTPException(status_code=400, detail="Query text is required")
 
+    requested_top_k = request.top_k or 5
+    candidate_count = max(requested_top_k, 12)
+
     try:
         query_vector = embed_text(request.query)
-        requested_top_k = request.top_k or 5
-        candidate_count = max(requested_top_k, 12)
         candidates = store.search(query_vector, top_k=candidate_count)
         hits = rerank_hits(request.query, candidates, requested_top_k)
-        try:
-            answer = generate_answer(request.query, hits)
-            mode = "groq"
-        except Exception as exc:
-            answer = build_retrieval_answer(request.query, hits)
-            mode = "retrieval_fallback"
-            return {"query": request.query, "answer": answer, "sources": hits, "mode": mode, "warning": str(exc)}
-
-        return {"query": request.query, "answer": answer, "sources": hits, "mode": mode}
     except Exception as exc:
-        logger.exception("Error in /ask")
-        raise HTTPException(status_code=500, detail=str(exc))
+        logger.exception("Embedding failed in /ask")
+        hits = lexical_search(request.query, top_k=requested_top_k)
+        answer = build_retrieval_answer(request.query, hits)
+        return {
+            "query": request.query,
+            "answer": answer,
+            "sources": hits,
+            "mode": "lexical_fallback",
+            "warning": f"Embedding failed: {str(exc)}",
+        }
+
+    try:
+        answer = generate_answer(request.query, hits)
+        mode = "groq"
+    except Exception as exc:
+        answer = build_retrieval_answer(request.query, hits)
+        mode = "retrieval_fallback"
+        return {"query": request.query, "answer": answer, "sources": hits, "mode": mode, "warning": str(exc)}
+
+    return {"query": request.query, "answer": answer, "sources": hits, "mode": mode}
 
 @app.get("/documents")
 def documents():
